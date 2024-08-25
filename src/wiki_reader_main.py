@@ -13,10 +13,7 @@ if not os.path.exists(articles_folder):
 
 def find_article(article_name):
     article_name = article_name.strip().replace(' ', '_')
-
-    # url = 'https://en.wikipedia.org/wiki/Human_body'
     url = 'https://en.wikipedia.org/wiki/' + article_name
-
     try:
         page = urlopen(url)
     except:
@@ -24,13 +21,17 @@ def find_article(article_name):
         sys.exit()
     return page, url
 
-# html parser needs some work to cleanly produce an article with no werid characters
 page, url = find_article(article_name)
 
+# TODO: parse headings as seperate from paragraph text
 html_bytes = page.read()
 html_content = html_bytes.decode('utf-8')
 soup = BeautifulSoup(html_content, 'html.parser')
-content = soup.get_text().replace('[edit]', '')
+text_list = soup.find_all(['h1', 'h2', 'p'])
+content = ''
+for i in range(len(text_list)):
+    content += text_list[i].get_text()
+    content == '\n'
 print(content)
 
 txt_name = url.replace('https://en.wikipedia.org/wiki/', '') + '.txt'
