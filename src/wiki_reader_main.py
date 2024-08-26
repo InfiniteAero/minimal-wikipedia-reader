@@ -2,6 +2,7 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import sys
 import os
+import re
 
 print("Minimal Wikipedia Reader")
 article_name = input("Enter the name of a topic: ")
@@ -29,32 +30,44 @@ page, url = find_article(article_name)
 
 html_bytes = page.read()
 html_content = html_bytes.decode("utf-8")
-soup = BeautifulSoup(html_content, "html.parser")
+selected_article = BeautifulSoup(html_content, "html.parser")
 
 # format the page correctly
+# TODO: add timestamp for each article generation
 content = ""
-tag_list = [tag for tag in soup.find_all()]
+tag_list = [tag for tag in selected_article.find_all()]
 for tag in tag_list:
     if tag.name == "h1":
-        # prints a fancy title with an underline
-        content += tag.get_text() + "\n" + "".join(["-"] * len(tag.get_text())) + "\n"
+        # prints a fancy title for the article
+        content += (
+            "\n" + "".join(["*"] * len(tag.get_text()))+ "****\n"
+            + "* " + tag.get_text() + " *\n" 
+            + "".join(["*"] * len(tag.get_text())) + "****\n"
+        )
     if tag.name == "h2":
-        # end web scrape if we reacht he end of the main article's contents
+        # end web scrape if we reach "See also"
         if tag.get_text() == "See also":
             break
-        content += "\n" + tag.get_text() + "\n\n"
+        # ignore heading that reads "Contents"
+        if tag.get_text() == "Contents":
+            continue
+        content += (
+            "\n" + tag.get_text() + "\n" + "".join(["*"] * len(tag.get_text())) + "\n"
+        )
+    if tag.name == "h3":
+        content += "~" + tag.get_text() + "~\n"
     if tag.name == "p":
-        content += tag.get_text() + "\n"
+        # avoid printing random blank lines
+        if tag.get_text():
+            content += tag.get_text() + "\n"
 
-# text_list = soup.find_all(['h1', 'h2', 'p'])
-# content = ''
-# for i in range(len(text_list)):
-#     content += text_list[i].get_text()
-#     content == '\n'
+# remove citations from article
+content = re.sub(r"\[(.*?)\]", "", content)
+
 print(content)
 
 txt_name = url.replace("https://en.wikipedia.org/wiki/", "") + ".txt"
 
 # write to file
-with open(os.path.join(articles_folder, txt_name), "a", encoding="utf-8") as txt_f:
+with open(os.path.join(articles_folder, txt_name), "w", encoding="utf-8") as txt_f:
     txt_f.write(content)

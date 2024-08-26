@@ -1,0 +1,6 @@
+1. search for articles and view them in terminal
+2. save article to local storage
+3. view saved article in terminal
+4. download multiple articles, or all articles linked from selected article, etc
+5. include a nice little user guide
+6. Infoboxes?
