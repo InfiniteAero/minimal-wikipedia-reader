@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import sys
 import os
 import re
+import datetime
 
 print("Minimal Wikipedia Reader")
 article_name = input("Enter the name of a topic: ")
@@ -63,6 +64,8 @@ for tag in tag_list:
 
 # remove citations from article
 content = re.sub(r"\[(.*?)\]", "", content)
+# add timestamp to indicate how old the article copy is
+content += "\nThis article was scraped and saved at: " + str(datetime.datetime.now().replace(microsecond=0))
 
 print(content)
 
