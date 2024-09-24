@@ -6,12 +6,13 @@ ONLY RUN THE PROGRAM FROM THIS FILE
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import os
-import rich
+from rich.console import Console
 import utils
 
+console = Console(highlight=False)
 
 if __name__ == "__main__":
-    print("Minimal Wikipedia Reader")
+    console.print("Minimal Wikipedia Reader")
     article_name = input("Enter the name of a topic: ")
 
     # make articles directory
@@ -27,7 +28,7 @@ if __name__ == "__main__":
 
     content = utils.pretty_print_article(selected_article)
 
-    print(content)
+    console.print(content)
 
     # write to file
     txt_name = url.replace("https://en.wikipedia.org/wiki/", "") + ".txt"

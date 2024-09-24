@@ -7,6 +7,8 @@ import sys
 import re
 import datetime
 
+from wiki_reader_main import console
+
 
 def pretty_print_article(selected_article: str) -> str:
     """Takes selected article's contents and prettifies it"""
@@ -57,6 +59,6 @@ def find_article(article_name: str):
     try:
         page = urlopen(url)
     except:
-        print("Article not found, damn")
+        console.print("Article not found, damn")
         sys.exit()
     return page, url
