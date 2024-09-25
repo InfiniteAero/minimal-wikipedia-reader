@@ -7,11 +7,14 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import os
 from rich.console import Console
-import utils
 
-console = Console(highlight=False)
+from utils import find_article, pretty_print_article
+
 
 if __name__ == "__main__":
+    global console
+    console = Console(highlight=False)
+
     console.print("Minimal Wikipedia Reader")
     article_name = input("Enter the name of a topic: ")
 
@@ -21,12 +24,12 @@ if __name__ == "__main__":
         os.makedirs(articles_folder)
 
     # load article
-    page, url = utils.find_article(article_name)
+    page, url = find_article(article_name, console)
     html_bytes = page.read()
     html_content = html_bytes.decode("utf-8")
     selected_article = BeautifulSoup(html_content, "html.parser")
 
-    content = utils.pretty_print_article(selected_article)
+    content = pretty_print_article(selected_article)
 
     console.print(content)
 

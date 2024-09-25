@@ -7,8 +7,6 @@ import sys
 import re
 import datetime
 
-from wiki_reader_main import console
-
 
 def pretty_print_article(selected_article: str) -> str:
     """Takes selected article's contents and prettifies it"""
@@ -52,7 +50,7 @@ def pretty_print_article(selected_article: str) -> str:
     return content
 
 
-def find_article(article_name: str):
+def find_article(article_name: str, console: object):
     """Opens a wikipedia article link based on the name provided by the user, if it exists"""
     article_name = article_name.strip().replace(" ", "_")
     url = "https://en.wikipedia.org/wiki/" + article_name
