@@ -40,7 +40,7 @@ if __name__ == "__main__":
 
     # test output for downloader
     console.print("\n\nDownloader test output\n**********************")
-    console.print(find_linked_articles(selected_article))
+    console.print(find_linked_articles(article_name))
 
     # write to file
     txt_name = url.replace("https://en.wikipedia.org/wiki/", "") + ".txt"
