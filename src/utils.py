@@ -3,7 +3,6 @@ Utility functions for Minimal Wikipedia Reader
 """
 
 from urllib.request import urlopen
-import sys
 import re
 import datetime
 
@@ -50,13 +49,12 @@ def pretty_print_article(selected_article: str) -> str:
     return content
 
 
-def find_article(article_name: str, console: object):
+def find_article(article_name: str):
     """Opens a wikipedia article link based on the name provided by the user, if it exists"""
     article_name = article_name.strip().replace(" ", "_")
     url = "https://en.wikipedia.org/wiki/" + article_name
     try:
         page = urlopen(url)
     except:
-        console.print("Article not found, damn")
-        sys.exit()
+        return "RED_ALERT"
     return page, url
