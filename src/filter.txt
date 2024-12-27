@@ -1,0 +1,25 @@
+##### SPECIAL WIKIPEDIA PAGES #####
+/wiki/Main_Page
+/wiki/Portal:
+/wiki/Special:
+/wiki/Wikipedia:
+/wiki/Help:
+/wiki/Special:
+/wiki/Category:
+/wiki/Talk:
+/wiki/Template:
+/wiki/Template_talk:
+##### MEDIA LINKS #####
+.jpg
+.png
+.svg
+.webp
+.mp3
+.mp4
+.gif
+##### OTHER WIKIMEDIA SITES #####
+wikimedia.org
+wikidata.org
+wikitionary.org
+wikibooks.org
+wikiquote.org

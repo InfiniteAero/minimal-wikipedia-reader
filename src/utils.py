@@ -36,6 +36,8 @@ def pretty_print_article(selected_article: str) -> str:
             )
         if tag.name == "h3":
             content += "~" + tag.get_text() + "~\n"
+        if tag.name == "h4":
+            content += "~~" + tag.get_text() + "~~\n"
         if tag.name == "p":
             # avoid printing random blank lines
             if tag.get_text():

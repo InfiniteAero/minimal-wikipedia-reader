@@ -33,6 +33,9 @@ if __name__ == "__main__":
     html_bytes = page.read()
     html_content = html_bytes.decode("utf-8")
     selected_article = BeautifulSoup(html_content, "html.parser")
+    # remove language select from article
+    language_button = selected_article.find("div", {"id": "p-lang-btn"})
+    language_button.clear()
 
     content = pretty_print_article(selected_article)
 
@@ -40,7 +43,9 @@ if __name__ == "__main__":
 
     # test output for downloader
     console.print("\n\nDownloader test output\n**********************")
-    console.print(find_linked_articles(article_name))
+    downloader_output = find_linked_articles(selected_article)
+    console.print(downloader_output)
+    console.print("Downloader Output Length: " + str(len(downloader_output)) + " elements")
 
     # write to file
     txt_name = url.replace("https://en.wikipedia.org/wiki/", "") + ".txt"
