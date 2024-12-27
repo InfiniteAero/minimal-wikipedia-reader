@@ -9,14 +9,9 @@
 /wiki/Talk:
 /wiki/Template:
 /wiki/Template_talk:
-##### MEDIA LINKS #####
-.jpg
-.png
-.svg
-.webp
-.mp3
-.mp4
-.gif
+/wiki/File:
+##### MISC #####
+(disambiguation)
 ##### OTHER WIKIMEDIA SITES #####
 wikimedia.org
 wikidata.org

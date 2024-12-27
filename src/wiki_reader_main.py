@@ -36,6 +36,7 @@ if __name__ == "__main__":
     # remove language select from article
     language_button = selected_article.find("div", {"id": "p-lang-btn"})
     language_button.clear()
+    # TODO: remove navbox at end of article
 
     content = pretty_print_article(selected_article)
 

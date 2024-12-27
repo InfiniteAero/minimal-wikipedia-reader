@@ -42,6 +42,9 @@ def pretty_print_article(selected_article: str) -> str:
             # avoid printing random blank lines
             if tag.get_text():
                 content += tag.get_text() + "\n"
+        # pull image captions
+        if tag.name == "figcaption":
+            content += "\n| " + tag.get_text() + " |\n\n"
     # remove citations from article
     content = re.sub(r"\[(.*?)\]", "", content)
     # add timestamp to indicate how old the article copy is

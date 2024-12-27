@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 def find_linked_articles(selected_article: object) -> list:
     """Given an article name, find all wikipedia articles it links to"""
     # prepare link filter
-    with open("src/filter.txt", "r") as txt_bad:
+    with open("src/filters/filter.txt", "r") as txt_bad:
         bad_links = txt_bad.read().splitlines()
     # find links to article
     linked_articles = []
@@ -21,8 +21,6 @@ def find_linked_articles(selected_article: object) -> list:
         article_link = link.get("href")
         if article_link is not None and "/wiki/" in article_link and article_link not in linked_articles:
             # filter out non article links
-            # TODO: potentially trim selected_article down to remove the language bar and other stuff to cut
-            #       down on the bloat in filter.txt
             for bad_link in bad_links:
                 if bad_link in article_link:
                     link_good = False
