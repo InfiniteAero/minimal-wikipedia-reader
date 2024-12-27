@@ -9,8 +9,8 @@ import os
 import sys
 from rich.console import Console
 
-from utils import find_article, pretty_print_article
-from downloader import find_linked_articles
+from utils import find_article, pretty_print_article, save_article, articles_folder
+from downloader import article_downloader
 
 if __name__ == "__main__":
     global console
@@ -20,7 +20,6 @@ if __name__ == "__main__":
     article_name = input("Enter the name of a topic: ")
 
     # make articles directory
-    articles_folder = "wikipedia_saved_articles"
     if not os.path.exists(articles_folder):
         os.makedirs(articles_folder)
 
@@ -36,19 +35,21 @@ if __name__ == "__main__":
     # remove language select from article
     language_button = selected_article.find("div", {"id": "p-lang-btn"})
     language_button.clear()
-    # TODO: remove navbox at end of article
 
     content = pretty_print_article(selected_article)
 
     console.print(content)
 
-    # test output for downloader
-    console.print("\n\nDownloader test output\n**********************")
-    downloader_output = find_linked_articles(selected_article)
-    console.print(downloader_output)
-    console.print("Downloader Output Length: " + str(len(downloader_output)) + " elements")
-
     # write to file
-    txt_name = url.replace("https://en.wikipedia.org/wiki/", "") + ".txt"
-    with open(os.path.join(articles_folder, txt_name), "w", encoding="utf-8") as txt_f:
-        txt_f.write(content)
+    save_article(url, articles_folder, content)
+
+    # run downloader
+    console.print("Downloading some related articles...")
+    console.print("************************************")
+    article_downloader(selected_article, 10, 100)
+
+    # test output for downloader
+    # console.print("\n\nDownloader test output\n**********************")
+    # downloader_output = find_linked_articles(selected_article)
+    # console.print(downloader_output)
+    # console.print("Downloader Output Length: " + str(len(downloader_output)) + " elements")

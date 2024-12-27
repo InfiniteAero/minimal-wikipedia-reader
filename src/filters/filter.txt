@@ -12,9 +12,12 @@
 /wiki/File:
 ##### MISC #####
 (disambiguation)
+List_
 ##### OTHER WIKIMEDIA SITES #####
 wikimedia.org
 wikidata.org
 wikitionary.org
 wikibooks.org
 wikiquote.org
+##### URL STUFF #####
+https:

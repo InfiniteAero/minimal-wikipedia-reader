@@ -1,10 +1,17 @@
 """
-Utility functions for Minimal Wikipedia Reader
+Utility functions/variables for Minimal Wikipedia Reader
 """
 
-from urllib.request import urlopen
+
 import re
+import os
 import datetime
+from urllib.request import urlopen
+from pathlib import Path
+
+
+# common variables
+articles_folder = "wikipedia_saved_articles"
 
 
 def pretty_print_article(selected_article: str) -> str:
@@ -26,7 +33,7 @@ def pretty_print_article(selected_article: str) -> str:
             )
         if tag.name == "h2":
             # end web scrape if we reach "See also"
-            if tag.get_text() == "See also":
+            if tag.get_text() == "References":
                 break
             # ignore heading that reads "Contents"
             if tag.get_text() == "Contents":
@@ -52,6 +59,15 @@ def pretty_print_article(selected_article: str) -> str:
         datetime.datetime.now().replace(microsecond=0)
     )
     return content
+
+
+def save_article(url: str, articles_folder: str, content: str) -> None:
+    """Saves a given article into a txt file in a specific folder"""
+    txt_name = url.replace("https://en.wikipedia.org/wiki/", "") + ".txt"
+    path = articles_folder + "\\" + txt_name[0] + txt_name[1] + "\\" + txt_name
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as txt_f:
+        txt_f.write(content)
 
 
 def find_article(article_name: str):
